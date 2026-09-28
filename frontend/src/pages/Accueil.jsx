@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-// Remplacement de FaFacebook par FaLinkedin ici
+import emailjs from "@emailjs/browser"; // Ne pas oublier cet import
+
 import { 
   FaCode, 
   FaEnvelope, 
@@ -27,7 +28,46 @@ const staggerContainer = {
 export default function Accueil() {
   const canvasRef = useRef(null);
 
-  // Données de ton Portfolio
+  // --- HOOKS ET LOGIQUE EMAILJS DÉPLACÉS À L'INTÉRIEUR DU COMPOSANT ---
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  
+const sendEmail = (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setStatus({ type: '', message: '' });
+
+  // 1. Envoi de la notification vers votre boîte mail
+  emailjs
+    .sendForm(
+      'service_sb8pvai',
+      'template_joti3dp', // Le 1er template (Notification pour vous)
+      form.current,
+      'VETtC5RWLwAMhHgu5'
+    )
+    .then(() => {
+      // 2. Envoi de l'accusé de réception automatique au client
+      return emailjs.sendForm(
+        'service_sb8pvai',
+        'template_hig6dir', // Le 2nd template (Auto-reply au client)
+        form.current,
+        'VETtC5RWLwAMhHgu5'
+      );
+    })
+    .then(() => {
+      setLoading(false);
+      setStatus({ type: 'success', message: 'Message envoyé avec succès !' });
+      form.current.reset();
+    })
+    .catch((error) => {
+      setLoading(false);
+      setStatus({ type: 'error', message: "Une erreur s'est produite lors de l'envoi." });
+      console.error(error.text);
+    });
+};
+  // Données de votre Portfolio
   const projets = [
     {
       id: 1,
@@ -279,7 +319,7 @@ export default function Accueil() {
     <div className="min-h-screen bg-base-100 text-base-content font-sans antialiased selection:bg-primary selection:text-primary-content">
       
       {/* 1. HERO SECTION */}
-      <section className=" hero-content- relative min-h-screen flex flex-col justify-center items-center bg-[#1e2229] overflow-hidden px-6 text-center">
+      <section className="relative min-h-screen flex flex-col justify-center items-center bg-[#1e2229] overflow-hidden px-6 text-center">
         <canvas 
           ref={canvasRef} 
           className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -309,7 +349,7 @@ export default function Accueil() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl"
           >
-            Ça tombe bien ! Je suis passionné par le web et j'ai pu acquérir un certain nombre de compétences depuis mes débuts dans le web il y a déjà plus de 10 ans.
+            Ça tombe bien ! Je suis passionné par le web et j'ai pu acquérir un certain nombre de compétences depuis mes débuts dans le web.
           </motion.p>
 
           <motion.p 
@@ -350,7 +390,7 @@ export default function Accueil() {
             <h2 className="text-3xl md:text-4xl font-extrabold mb-6 uppercase tracking-wider">À propos</h2>
             <div className="w-16 h-1 bg-[#ff5722] mx-auto rounded-full mb-8"></div>
             <p className="text-xl leading-relaxed text-base-content/80">
-              Développeur web spécialisé en WordPress, React et PHP. J'accompagne les entreprises dans la création de sites performants, modernes et optimisés SEO.
+              Développeur WordPress avec 3 ans d’expérience, je conçois des sites sur mesure, développe des plugins et mets en place des solutions e-commerce avec WooCommerce. J’ai eu l’occasion de travailler sur plusieurs projets en équipe, de la conception à la mise en ligne, avec une attention particulière à la performance, à la sécurité et à l’expérience utilisateur.
             </p>
           </motion.div>
         </div>
@@ -425,7 +465,7 @@ export default function Accueil() {
       <section id="portfolio" className="py-24 bg-base-200 border-y border-base-300">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wider mb-4">Portfolio</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-wider mb-4">Réalisation</h2>
             <div className="w-16 h-1 bg-[#ff5722] mx-auto rounded-full"></div>
           </div>
 
@@ -586,7 +626,7 @@ export default function Accueil() {
         </div>
       </section>
 
-      {/* 8. CONTACT (Divisé en 2 colonnes avec LinkedIn) */}
+      {/* 8. CONTACT */}
       <section id="contact" className="py-24 bg-neutral text-neutral-content shadow-inner">
         <div className="container mx-auto px-6 max-w-6xl">
           
@@ -637,7 +677,7 @@ export default function Accueil() {
                   </div>
                 </a>
 
-                {/* LinkedIn - Modification effectuée ici */}
+                {/* LinkedIn */}
                 <a 
                   href="https://www.linkedin.com/in/tafita-ambinintsoa-raharinaivo-3a66b9380/"
                   target="_blank" 
@@ -649,18 +689,24 @@ export default function Accueil() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 font-mono">LinkedIn</p>
-                    <p className="text-base font-medium group-hover:text-[#ff5722] transition-colors">Mon profil LinkedIn</p>
+                    <p className="text-base font-medium group-hover:text-[#ff5722] transition-colors">Tafita ambinintsoa Raharinaivo</p>
                   </div>
                 </a>
               </div>
             </div>
 
             {/* Colonne Droite : Le formulaire */}
-            <form className="space-y-5 bg-base-100 p-8 rounded-2xl shadow-xl text-base-content w-full">
+            <form 
+              ref={form} 
+              onSubmit={sendEmail} 
+              className="space-y-5 bg-base-100 p-8 rounded-2xl shadow-xl text-base-content w-full"
+            >
               <div className="form-control w-full">
                 <label className="label font-medium text-sm">Nom</label>
                 <input
                   type="text"
+                  name="user_name"
+                  required
                   placeholder="Nom"
                   className="input input-bordered w-full focus:input-primary bg-base-200"
                 />
@@ -670,6 +716,8 @@ export default function Accueil() {
                 <label className="label font-medium text-sm">Email</label>
                 <input
                   type="email"
+                  name="user_email"
+                  required
                   placeholder="Email"
                   className="input input-bordered w-full focus:input-primary bg-base-200"
                 />
@@ -678,17 +726,26 @@ export default function Accueil() {
               <div className="form-control w-full">
                 <label className="label font-medium text-sm">Votre message</label>
                 <textarea
+                  name="message"
+                  required
                   rows={5}
                   placeholder="Votre message"
                   className="textarea textarea-bordered w-full focus:textarea-primary bg-base-200"
                 />
               </div>
 
+              {status.message && (
+                <div className={`text-sm text-center p-2 rounded-lg ${status.type === 'success' ? 'text-success bg-success/10' : 'text-error bg-error/10'}`}>
+                  {status.message}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="btn bg-[#ff5722] hover:bg-[#e64a19] text-white w-full shadow-md mt-4 border-none"
+                disabled={loading}
+                className="btn bg-[#ff5722] hover:bg-[#e64a19] text-white w-full shadow-md mt-4 border-none disabled:bg-gray-400"
               >
-                Envoyer
+                {loading ? 'Envoi en cours...' : 'Envoyer'}
               </button>
             </form>
 
