@@ -13,7 +13,7 @@ function App() {
       <div className="flex flex-col min-h-screen bg-base-200 text-base-content">
 
 
-        {/* 📦 CONTENU PRINCIPAL (Utilise bg-base-100 pour la carte) */}
+
         <main className="">
           <div className="content">
             <Routes>
