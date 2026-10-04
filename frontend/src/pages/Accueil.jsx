@@ -141,28 +141,28 @@ const sendEmail = (e) => {
 
   const formations = [
     {
-      date: "2017-2018",
-      titre: "Licence professionnelle CDW",
-      description: "Formation en alternance à l'école Aries (Licence conception et développement d'application web et mobile).",
+      date: "2019 – 2021",
+      titre: "Formation en programmation et développement web",
+      description: "Études à IT University, avec une formation axée sur la programmation, le développement web et la conception de solutions informatiques.",
       image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=150&auto=format&fit=crop",
     },
     {
-      date: "2014-2016",
-      titre: "BTS Services Informatiques aux Organisations",
-      description: "Formation au lycée Ella Fitzgerald en spécialité SLAM (Solution Logiciel Application Métier).",
+      date: "2019",
+      titre: "Début dans le développement web",
+      description: "Intérêt pour la création de sites web et début d’une formation en développement web chez E-Media, permettant d’acquérir les premières bases de la programmation et de la conception de sites.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=150&auto=format&fit=crop",
     },
     {
-      date: "2014",
-      titre: "BAC STMG",
-      description: "BAC STMG au lycée Ella Fitzgerald en spécialité SIG (Système de Gestion de l'Information).",
-      image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=150&auto=format&fit=crop",
+      date: "2018 - 2019",
+      titre: "Baccalauréat – Série D",
+      description: "",
+      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=150&auto=format&fit=crop",
     },
     {
-      date: "Avant 2014",
-      titre: "Passion pour l'informatique",
-      description: "Avant de débuter une formation dans le développement web, j'ai d'abord commencé par être passionné par la complexité de l'informatique et plus précisément dans la programmation.",
-      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=150&auto=format&fit=crop",
+      date: "Avant 2018",
+      titre: "Passion pour la création web",
+      description: "Passionné par l’informatique et la programmation, je me suis progressivement intéressé à la création de sites web, ce qui m’a naturellement conduit vers une carrière dans le développement web.",
+      image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=150&auto=format&fit=crop",
     }
   ];
 
@@ -596,13 +596,15 @@ const sendEmail = (e) => {
           >
             <div className="flex items-center gap-2 mb-1">
               <FaLaptopCode className="text-[#ff5722]" />
-              <h3 className="font-bold text-xl">Développeur Front-End</h3>
+              <h3 className="font-bold text-xl">Développeur Front-End et Back-end </h3>
             </div>
+
             <span className="badge badge-sm bg-base-200 text-base-content/60 border-none font-medium mb-3">
+             <strong>Netykom</strong>
               2023 - Aujourd'hui
             </span>
             <p className="text-base-content/70">
-              Développement d'interfaces web modernes avec React.
+              Au sein de mon entreprise, j’ai participé à l’analyse et à l’étude de faisabilité de différents projets web, puis à leur développement et à leur intégration. J’ai notamment conçu et développé des plugins WordPress personnalisés selon les cahiers des charges, intégré des maquettes de manière ergonomique et responsive, et optimisé les performances des sites, notamment avec PageSpeed. J’ai également assuré le diagnostic, le débogage et la résolution des différents dysfonctionnements techniques afin de garantir la stabilité et la qualité des projets.
             </p>
           </motion.div>
 
@@ -614,13 +616,13 @@ const sendEmail = (e) => {
           >
             <div className="flex items-center gap-2 mb-1">
               <FaCode className="text-gray-500" />
-              <h3 className="font-bold text-xl">Développeur WordPress</h3>
+              <h3 className="font-bold text-xl">Freelance – Développeur Web / Intégrateur SEO</h3>
             </div>
             <span className="badge badge-sm bg-base-200 text-base-content/60 border-none font-medium mb-3">
-              2021 - 2023
+              <strong>PROJET : SITE DE VOYAGE / DATES (01MARS 2026 – 28 JUIN 2026)</strong>01 Mars 2026 - 28  Juin 2026
             </span>
             <p className="text-base-content/70">
-              Création de thèmes et plugins personnalisés.
+              Conception et développement d’un site web dédié au secteur du voyage, avec intégration responsive des différentes pages et optimisation SEO afin d’améliorer la visibilité du site sur les moteurs de recherche. Conception et développement d’un plugin WordPress sur mesure, adapté aux besoins spécifiques du projet et aux fonctionnalités demandées par le client.
             </p>
           </motion.div>
         </div>
